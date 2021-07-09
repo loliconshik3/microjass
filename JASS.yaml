@@ -1,0 +1,24 @@
+filetype: JASS
+
+detect:
+    filename: "\\.j$"
+
+rules:
+    - special: "\\b(native|function|endfunction|globals|endglobals|library|endlibrary|initializer|takes|returns)\\b"
+    - statement: "\\b(private|local|constant|loop|exitwhen|endloop|if|then|else|elseif|endif|set|call|nothing|null|array|return)\\b"
+    - preproc: "\\b(integer|string|unit|location|real|boolean|group|player|trigger|widget|code|filter|boolexpr|handle)\\b"
+
+    - constant.string:
+        start: "\""
+        end: "\""
+        rules:
+            - constant.specialChar: "%."
+            - constant.specialChar: "\\\\[abfnrtv'\\\"\\\\]"
+            - constant.specialChar: "\\\\([0-7]{3}|x[A-Fa-f0-9]{2}|u[A-Fa-f0-9]{4}|U[A-Fa-f0-9]{8})"
+
+    - comment:
+        start: "//"
+        end: "$"
+        rules:
+            - todo: "(TODO|XXX|FIXME):?"
+
